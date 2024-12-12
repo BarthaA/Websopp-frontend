@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
