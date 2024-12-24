@@ -13,10 +13,10 @@ const Navbar = () => {
 
     const navItems = useMemo(
         () => [
-            { id: "home", text: "Home", icon: <FaHome size={25} />, href: "/",},
-            { id: "products", text: "Products", icon: <FaCar size={25} />, href: "/products", },
-            { id: "cart", text: "Cart", icon: <FaShoppingCart size={25} />, href: "/cart", },
-            { id: "login", text: "Login", icon: <IoLogIn size={25} />, href: "/login", },
+            { id: "home", text: "Home", icon: <FaHome size={25} />, href: "/" },
+            { id: "products", text: "Products", icon: <FaCar size={25} />, href: "/products"},
+            { id: "cart", text: "Cart", icon: <FaShoppingCart size={25} />, href: "/cart"},
+            { id: "login", text: "Login", icon: <IoLogIn size={25} />, href: "/login" },
         ],
         []
     );
@@ -27,9 +27,19 @@ const Navbar = () => {
         setActiveItem(matchingItem ? matchingItem.id : "");
     }, [location.pathname, navItems]);
 
+    const handleToggle = () => {
+        setIsOpen((curr) => !curr);
+    };
+
+    const handleButtonClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        handleToggle();
+    };
+
     return (
         <aside
             id="nav-wrapper"
+            onClick={handleToggle}
             className={`h-screen bg-white block fixed ${
                 isOpen ? "w-64" : "w-20"
             } transition-all`}
@@ -45,7 +55,7 @@ const Navbar = () => {
                         alt="Logo"
                     />
                     <button
-                        onClick={() => setIsOpen((curr) => !curr)}
+                        onClick={handleButtonClick}
                         className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
                     >
                         {isOpen ? (
@@ -79,7 +89,7 @@ const Navbar = () => {
                     {isOpen && (
                         <div className="flex justify-between items-center ml-3 w-full">
                             <div className="leading-4">
-                                <h4 className="font-semibold">Username</h4>
+                                <h4 className="font-semibold">[Username]</h4>
                             </div>
                             <MdMoreVert size={20} className="cursor-pointer" />
                         </div>
@@ -92,7 +102,23 @@ const Navbar = () => {
 
 export default Navbar;
 
-export function NavbarItem({ icon, text, href, isActive, onClick, isOpen }) {
+interface NavbarItemProps {
+    icon: JSX.Element;
+    text: string;
+    href: string;
+    isActive: boolean;
+    onClick: () => void;
+    isOpen: boolean;
+}
+
+export function NavbarItem({
+    icon,
+    text,
+    href,
+    isActive,
+    onClick,
+    isOpen,
+}: NavbarItemProps) {
     return (
         <Link to={href}>
             <li
@@ -104,7 +130,7 @@ export function NavbarItem({ icon, text, href, isActive, onClick, isOpen }) {
                 }`}
             >
                 <div
-                    className={`ml-0.5 flex items-center justify-center ${
+                    className={`ml-0.5  flex items-center justify-center ${
                         isOpen ? "block" : "block"
                     }`}
                 >

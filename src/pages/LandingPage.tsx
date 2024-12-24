@@ -22,8 +22,7 @@ const LandingPage = () => {
                         <Link to={"/products"} className="hover:scale-105 transition-all duration-200">
                             <button
                                 id="action-button"
-                                className="bg-orange-500 hover:bg-orange-600
-                                text-white font-semibold py-3 px-8 rounded-md shadow-md"
+                                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-md shadow-md"
                             >
                                 Browse Cars
                             </button>

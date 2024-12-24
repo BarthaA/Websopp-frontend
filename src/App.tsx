@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Navbar from "./sections/Navbar";
+import Footer from "./sections/Footer";
 import LandingPage from "./pages/LandingPage";
 
 const App = () => (

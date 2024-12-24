@@ -1,6 +1,6 @@
 const API_BASE_URL = 'http://localhost:3000';
 
-interface Car {
+export interface Car {
     id: number;
     brand: string;
     model: string;
@@ -9,15 +9,18 @@ interface Car {
     price: number;
 }
 
-export const getCars = async (page: number, limit: number) => {
+export const getCars = async (page: number, limit: number): Promise<Car[]> => {
   const response = await fetch(`${API_BASE_URL}/cars?page=${page}&limit=${limit}`);
-  if (!response.ok) throw new Error('Failed to fetch cars');
-  return response.json();
+  if (!response.ok) throw new Error("Failed to fetch cars");
+
+  const result = await response.json();
+  return result.data; // Extract the data array
 };
+
 
 export const getCarById = async (id: number) => {
   const response = await fetch(`${API_BASE_URL}/cars/${id}`);
-  if (!response.ok) throw new Error('Failed to fetch car');
+  if (!response.ok) throw new Error(`Failed to fetch car ${id}`);
   return response.json();
 };
 
@@ -52,6 +55,12 @@ export const addToCart = async (id: number) => {
   if (!response.ok) throw new Error('Failed to add to cart');
   return response.json();
 };
+
+export const deleteFromCart = async (id: number) => {
+  const response = await fetch(`${API_BASE_URL}/cars/cart/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error('Failed to delete from cart');
+  return response.json();
+}
 
 export const getCart = async () => {
   const response = await fetch(`${API_BASE_URL}/cars/cart`);
